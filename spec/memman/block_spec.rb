@@ -47,6 +47,27 @@ module MemMan
         subject.write('123')
         expect(subject.read).to eq(['1','2','3',nil,nil])
       end
+
+      context 'block is freed' do
+        before { subject.free }
+
+        it 'errors when trying to read' do
+          expect{ subject.read }.to raise_error IllegalAccessError
+        end
+
+        it 'errors on write attempts' do
+          expect{ subject.read }.to raise_error IllegalAccessError
+        end
+      end
+    end
+
+    context 'allocating a sub block' do
+      let(:parent) { described_class.new(block_size) }
+      let(:sub_size) { 2 }
+
+      it 'creates a new block' do
+        expect(parent.alloc(2)).to be_a(Block)
+      end
     end
   end
 end

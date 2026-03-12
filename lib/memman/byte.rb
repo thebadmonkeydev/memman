@@ -3,8 +3,10 @@
 module MemMan
   class Byte
     attr_accessor :value
+    attr_accessor :parent
 
-    def initialize(value = nil)
+    def initialize(parent, value = nil)
+      @parent = parent
       @value = value
     end
   end
