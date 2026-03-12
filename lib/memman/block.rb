@@ -17,14 +17,14 @@ module MemMan
       raise MemoryOverrunError if data.length > size
 
       data.to_s.chars.each_with_index do |d, i|
-        @bytes[i] = d
+        @bytes[i] = Byte.new(d)
       end
     end
 
     def read
       check_freed!
 
-      bytes
+      bytes.map { |b| b ? b.value : nil }
     end
 
     def free

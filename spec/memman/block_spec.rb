@@ -25,12 +25,12 @@ module MemMan
     context 'writting to virtual memory' do
       it 'writes to the array as virtual memory' do
         subject.write('a')
-        expect(subject.bytes[0]).to eq('a')
+        expect(subject.bytes[0].value).to eq('a')
       end
 
       it 'can write multiple bytes at a time' do
         subject.write('1234')
-        expect(subject.bytes).to eq(['1','2','3','4',nil])
+        expect(subject.bytes.map { |b| b ? b.value : nil }).to eq(['1','2','3','4',nil])
       end
 
       it 'throws an error when a write is too big' do
